@@ -16,7 +16,7 @@ function setCardType(type) {
   alterarcolors1.setAttribute("fill", colors[type][0]);
   alterarcolors2.setAttribute("fill", colors[type][1]);
 }
-setCardType("mastercard");
+setCardType("default");
 
 const securityCode = document.querySelector("#security-code");
 const securyCodePattern = {
@@ -64,12 +64,27 @@ const cardNumberPattern = {
 
   dispatch: function (appended, dynamicMasked) {
     const number = (dynamicMasked.value + appended).replace(/\D/g, "");
-    const foundmask = dynamicMasked.compiledMask.find(function(item){
+    const foundmask = dynamicMasked.compiledMasks.find(function(item){
       return number.match(item.regex)
     })
-    console.log(foundmask)
+    
     return foundmask
   },
  
 };
  const cardNumberMasked = IMask(cardNumber, cardNumberPattern);
+
+ const AddButton = document.querySelector("#add-card")
+AddButton.addEventListener("click", () =>{
+ alert("Cartão Cadastrado!")
+})
+
+document.querySelector("form").addEventListener("submit", (event)=>{
+  event.preventDefault()
+})
+//Pegando o nome do titular do cartão.
+const cardHolder = document.querySelector("#card-holder")
+cardHolder.addEventListener("input", () => {
+      const ccHolder = document.querySelector(".cc-holder .value")
+         ccHolder.innerText = cardHolder.value
+    })
