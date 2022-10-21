@@ -12,7 +12,9 @@ function setCardType(type) {
     visa: ["#436D99", "#2D57F2"],
     mastercard: ["#C69347", "#DF6F29"],
     default: ["black", "gray"],
+    
   };
+  
   alterarcolors1.setAttribute("fill", colors[type][0]);
   alterarcolors2.setAttribute("fill", colors[type][1]);
 }
@@ -76,7 +78,7 @@ const cardNumberPattern = {
 
  const AddButton = document.querySelector("#add-card")
 AddButton.addEventListener("click", () =>{
- alert("Cartão Cadastrado!")
+ 
 })
 
 document.querySelector("form").addEventListener("submit", (event)=>{
@@ -86,5 +88,38 @@ document.querySelector("form").addEventListener("submit", (event)=>{
 const cardHolder = document.querySelector("#card-holder")
 cardHolder.addEventListener("input", () => {
       const ccHolder = document.querySelector(".cc-holder .value")
-         ccHolder.innerText = cardHolder.value
+         ccHolder.innerText = cardHolder.value.length === 0? "FULANO DA SILVA": cardHolder.value
     })
+
+
+// Pegando o valor digitado no CVC 
+securityCodeMasked.on("accept", ()=>{
+  updateSecurityCode(securityCodeMasked.value);
+})
+
+function updateSecurityCode(code){
+  const ccCode = document.querySelector(".cc-security .value")
+    ccCode.innerText = code.length === 0 ? "123": code
+}
+
+//Pegando número digitado pelo usuario
+cardNumberMasked.on("accept", () =>{
+  const cardType = cardNumberMasked.masked.currentMask.type
+  setCardType(cardType)
+  updateCardNumber(cardNumberMasked.value);
+})
+
+function updateCardNumber(number){
+  const ccNumber = document.querySelector(".cc-number")
+    ccNumber.innerText = number.length == 0 ? "1234 5678 9012 3456" : number
+}
+
+//Pegando a data do cartão
+expireDateMasked.on("accept", () =>{
+  updateExpireDate(expireDateMasked.value)
+})
+
+function updateExpireDate(date){
+  const ccDate = document.querySelector(".cc-expiration .value")
+   ccDate.innerText = date.length === 0 ? "02/32" : date
+}
