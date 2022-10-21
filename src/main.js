@@ -78,7 +78,7 @@ const cardNumberPattern = {
 
  const AddButton = document.querySelector("#add-card")
 AddButton.addEventListener("click", () =>{
- 
+ alert("Cartão cadastrado com sucesso!!")
 })
 
 document.querySelector("form").addEventListener("submit", (event)=>{
